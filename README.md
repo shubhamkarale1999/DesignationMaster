@@ -40,7 +40,7 @@ Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation (optional for hot reload)
 bash
 Copy
 Edit
-git clone https://github.com/your-repo/designation-management.git
+git clone git@github.com:shubhamkarale1999/DesignationMaster.git
 cd designation-management
 2. Check the Connection String
 Ensure your appsettings.json has the correct SQL Server connection string:

@@ -1,8 +1,8 @@
 
-📋 Designation Management System
+## Designation Management System
 This is a web-based Designation Management System built using ASP.NET Core, Entity Framework Core, and SQL Server. It allows users to manage designations with features like filters, DataTables with server-side processing, and export to Excel/Print functionality.
 
-🏗️ Technologies Used
+# Technologies Used
 Backend: ASP.NET Core (.NET 8)
 
 ORM: Entity Framework Core
@@ -19,8 +19,8 @@ DataTables.net
 
 DataTables Extensions (Buttons, Print, Export)
 
-🚀 Getting Started
-✅ Prerequisites
+## Getting Started
+# Prerequisites
 Visual Studio 2022 or later
 
 NET 8 SDK installed
@@ -35,21 +35,16 @@ Microsoft.EntityFrameworkCore.Tools
 
 Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation (optional for hot reload)
 
-🧪 Setting Up the Project
+# Setting Up the Project
 1. Clone the Repository
-bash
-Copy
-Edit
+   
 git clone https://github.com/shubhamkarale1999/DesignationMaster.git
-cd designation-management
-2. Check the Connection String
+
+3. Check the Connection String
 Ensure your appsettings.json has the correct SQL Server connection string:
 
-json
-Copy
-Edit
 "ConnectionStrings": {
-  "DefaultConnection": "Server=YOUR_SERVER_NAME;Database=DesignationDB;Trusted_Connection=True;MultipleActiveResultSets=true"
+  "DefaultConnection": "Data Source=.;Initial Catalog=DesignationMaster;Integrated Security=True;Trust Server Certificate=True"
 }
 Update YOUR_SERVER_NAME to match your local/remote SQL Server.
 
@@ -58,16 +53,11 @@ Use the Entity Framework Core CLI or Package Manager Console to apply migrations
 
 Using Package Manager Console (Visual Studio):
 
-powershell
-Copy
-Edit
 Add-Migration InitialCreate
 Update-Database
+
 Or using .NET CLI:
 
-bash
-Copy
-Edit
 dotnet ef migrations add InitialCreate
 dotnet ef database update
 📊 Features

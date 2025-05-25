@@ -1,8 +1,8 @@
 
-## Designation Management System
+# Designation Management System
 This is a web-based Designation Management System built using ASP.NET Core, Entity Framework Core, and SQL Server. It allows users to manage designations with features like filters, DataTables with server-side processing, and export to Excel/Print functionality.
 
-# Technologies Used
+## Technologies Used
 Backend: ASP.NET Core (.NET 8)
 
 ORM: Entity Framework Core
@@ -19,8 +19,8 @@ DataTables.net
 
 DataTables Extensions (Buttons, Print, Export)
 
-## Getting Started
-# Prerequisites
+# Getting Started
+## Prerequisites
 Visual Studio 2022 or later
 
 NET 8 SDK installed
@@ -35,7 +35,7 @@ Microsoft.EntityFrameworkCore.Tools
 
 Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation (optional for hot reload)
 
-# Setting Up the Project
+## Setting Up the Project
 1. Clone the Repository
    
 git clone https://github.com/shubhamkarale1999/DesignationMaster.git
@@ -46,7 +46,7 @@ Ensure your appsettings.json has the correct SQL Server connection string:
 "ConnectionStrings": {
   "DefaultConnection": "Data Source=.;Initial Catalog=DesignationMaster;Integrated Security=True;Trust Server Certificate=True"
 }
-Update YOUR_SERVER_NAME to match your local/remote SQL Server.
+Update ConnectionStrings to match your local/remote SQL Server. if required
 
 3. Update the Database
 Use the Entity Framework Core CLI or Package Manager Console to apply migrations and create the database.
@@ -60,7 +60,8 @@ Or using .NET CLI:
 
 dotnet ef migrations add InitialCreate
 dotnet ef database update
-📊 Features
+
+## Features
 Filter designation list by:
 
 College Name
@@ -73,23 +74,7 @@ Export to Excel & Print buttons
 
 Responsive & clean UI with Bootstrap
 
-📂 Project Structure
-markdown
-Copy
-Edit
-Controllers/
-  └── DesignationController.cs
-Views/
-  └── Designation/
-      ├── Index.cshtml
-      └── AddDesignation.cshtml
-Models/
-  └── Designation.cs
-  └── College.cs
-Data/
-  └── ApplicationDbContext.cs
-
-📌 Notes
+## Notes
 
 Buttons for export/print are powered by DataTables.Buttons extension.
 

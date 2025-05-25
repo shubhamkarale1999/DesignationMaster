@@ -11,13 +11,13 @@ namespace DesignationMaster.Models
         public int Id { get; set; }
 
         [Display(Name = "College")]
-        public int CollegeId { get; set; }
+        public int? CollegeId { get; set; }
 
         [ForeignKey("CollegeId")]
         public CollegeViewMode? College { get; set; }
 
         [Display(Name = "Designation Code")]
-        public int DesignationCode { get; set; }
+        public int? DesignationCode { get; set; }
 
         [Required]
         [Display(Name = "Designation Acronym")]
@@ -30,7 +30,7 @@ namespace DesignationMaster.Models
         public string DesignationName { get; set; }
 
         [Display(Name = "Stream")]
-        public int StreamId { get; set; }
+        public int? StreamId { get; set; }
 
         [ForeignKey("StreamId")]
         public StreamViewModel? Stream { get; set; }
@@ -53,5 +53,9 @@ namespace DesignationMaster.Models
         public DateTime? UpdatedDate { get; set; }
 
         public bool Status { get; set; }
+
+        public string? StaffType { get; set; } 
+
+        public string? Priority { get; set; }
     }
 }

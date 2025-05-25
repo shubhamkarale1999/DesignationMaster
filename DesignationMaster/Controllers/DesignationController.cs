@@ -35,20 +35,65 @@ namespace DesignationMaster.Controllers
             var draw = Request.Form["draw"].FirstOrDefault();
             var start = Request.Form["start"].FirstOrDefault();
             var length = Request.Form["length"].FirstOrDefault();
-            var searchValue = Request.Form["search[value]"].FirstOrDefault();
+            var sortColumnIndex = Request.Form["order[0][column]"].FirstOrDefault();
+            var sortDirection = Request.Form["order[0][dir]"].FirstOrDefault(); // asc or desc
+
+            var collegeId = Request.Form["collegeId"].FirstOrDefault();
+            var designationName = Request.Form["designationName"].FirstOrDefault();
 
             int pageSize = length != null ? Convert.ToInt32(length) : 0;
             int skip = start != null ? Convert.ToInt32(start) : 0;
 
             var designations = _context.DesignationMasterViewModel.AsQueryable();
 
-            if (!string.IsNullOrEmpty(searchValue))
+            // Filtering
+            if (!string.IsNullOrEmpty(collegeId))
             {
-                designations = designations.Where(d =>
-                    d.DesignationName.Contains(searchValue) ||
-                    d.DesignationAcronym.Contains(searchValue));
-                //||
-                // d.StaffType.Contains(searchValue));
+                designations = designations.Where(d => d.CollegeId.ToString() == collegeId);
+            }
+
+            if (!string.IsNullOrEmpty(designationName))
+            {
+                designations = designations.Where(d => d.DesignationName.Contains(designationName));
+            }
+
+            // Sorting
+            if (!string.IsNullOrEmpty(sortColumnIndex) && !string.IsNullOrEmpty(sortDirection))
+            {
+                // Match index to property name
+                switch (sortColumnIndex)
+                {
+                    case "0":
+                        designations = sortDirection == "asc"
+                            ? designations.OrderBy(d => d.Id) // Use a stable ID for S.No
+                            : designations.OrderByDescending(d => d.Id);
+                        break;
+                    case "1":
+                        designations = sortDirection == "asc"
+                            ? designations.OrderBy(d => d.DesignationAcronym)
+                            : designations.OrderByDescending(d => d.DesignationAcronym);
+                        break;
+                    case "2":
+                        designations = sortDirection == "asc"
+                            ? designations.OrderBy(d => d.DesignationName)
+                            : designations.OrderByDescending(d => d.DesignationName);
+                        break;
+                    case "3":
+                        designations = sortDirection == "asc"
+                            ? designations.OrderBy(d => d.StaffType)
+                            : designations.OrderByDescending(d => d.StaffType);
+                        break;
+                    case "4":
+                        designations = sortDirection == "asc"
+                            ? designations.OrderBy(d => d.Priority)
+                            : designations.OrderByDescending(d => d.Priority);
+                        break;
+                    case "5":
+                        designations = sortDirection == "asc"
+                            ? designations.OrderBy(d => d.RolesAndResponsibilities)
+                            : designations.OrderByDescending(d => d.RolesAndResponsibilities);
+                        break;
+                }
             }
 
             var totalRecords = designations.Count();
@@ -62,8 +107,8 @@ namespace DesignationMaster.Controllers
                     rowIndex = skip + index + 1,
                     d.DesignationAcronym,
                     d.DesignationName,
-                    //  d.StaffType,
-                    //  d.Priority,
+                    d.StaffType,
+                    d.Priority,
                     d.RolesAndResponsibilities
                 });
 
@@ -76,16 +121,19 @@ namespace DesignationMaster.Controllers
             });
         }
 
+
+
         public IActionResult AddDesignation()
         {
             ViewBag.CollegeList = new SelectList(_context.CollegeViewMode.ToList(), "Id", "CollegeName");
-            ViewBag.StreamList = new List<SelectListItem>
-    {
-        new SelectListItem { Value = "All", Text = "All" },
-        new SelectListItem { Value = "Science", Text = "Science" },
-        new SelectListItem { Value = "Arts", Text = "Arts" },
-        new SelectListItem { Value = "Commerce", Text = "Commerce" }
-    };
+            ViewBag.StreamList = new SelectList(_context.StreamViewModel.ToList(), "Id", "StreamName");
+            //        ViewBag.StreamList = new List<SelectListItem>
+            //{
+            //    new SelectListItem { Value = "All", Text = "All" },
+            //    new SelectListItem { Value = "Science", Text = "Science" },
+            //    new SelectListItem { Value = "Arts", Text = "Arts" },
+            //    new SelectListItem { Value = "Commerce", Text = "Commerce" }
+            //};
             return View();
         }
 
@@ -100,13 +148,7 @@ namespace DesignationMaster.Controllers
 
             }
             ViewBag.CollegeList = new SelectList(_context.CollegeViewMode.ToList(), "Id", "CollegeName", designationMasterViewModel.CollegeId);
-            ViewBag.StreamList = new List<SelectListItem>
-    {
-        new SelectListItem { Value = "All", Text = "All" },
-        new SelectListItem { Value = "Science", Text = "Science" },
-        new SelectListItem { Value = "Arts", Text = "Arts" },
-        new SelectListItem { Value = "Commerce", Text = "Commerce" }
-    };
+            ViewBag.StreamList = new SelectList(_context.StreamViewModel.ToList(), "Id", "StreamName");
             return View();
 
 

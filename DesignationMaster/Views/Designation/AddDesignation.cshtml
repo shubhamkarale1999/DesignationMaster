@@ -4,7 +4,7 @@
     ViewData["Title"] = "New Designation";
 }
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
 
 <div class="container mt-4">
     <div class="bg-primary text-white p-2 rounded text-center">
@@ -12,11 +12,14 @@
     </div>
 
     <form asp-action="AddDesignation" method="post" class="mt-4">
+      
 
         <div class="mb-3 row">
             <label class="col-sm-3 col-form-label">College</label>
             <div class="col-sm-9">
-                <select asp-for="CollegeId" asp-items="ViewBag.CollegeList" class="form-select"></select>
+                <select asp-for="CollegeId" asp-items="ViewBag.CollegeList" class="form-select">
+                  @*   <option value="">-- Select College --</option> *@
+                </select>
             </div>
         </div>
 
@@ -24,41 +27,55 @@
             <label class="col-sm-3 col-form-label">Designation Code</label>
             <div class="col-sm-9">
                 <input type="number" asp-for="DesignationCode" class="form-control" />
+                <span asp-validation-for="DesignationCode" class="text-danger"></span>
             </div>
         </div>
 
         <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label">Designation Acronym</label>
+            <label class="col-sm-3 col-form-label">
+                Designation Acronym <span class="text-danger">*</span>
+            </label>
             <div class="col-sm-9">
-                <input asp-for="DesignationAcronym" class="form-control" required />
+                <input asp-for="DesignationAcronym" class="form-control" />
+                <span asp-validation-for="DesignationAcronym" class="text-danger"></span>
             </div>
         </div>
 
         <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label">Designation Name</label>
+            <label class="col-sm-3 col-form-label">
+                Designation Name <span class="text-danger">*</span>
+            </label>
             <div class="col-sm-9">
-                <input asp-for="DesignationName" class="form-control" required />
+                <input asp-for="DesignationName" class="form-control" />
+                <span asp-validation-for="DesignationName" class="text-danger"></span>
             </div>
         </div>
 
         <div class="mb-3 row">
             <label class="col-sm-3 col-form-label">Stream</label>
             <div class="col-sm-9">
-                <select asp-for="Stream" asp-items="ViewBag.StreamList" class="form-select"></select>
+                <select asp-for="StreamId" asp-items="ViewBag.StreamList" class="form-select">
+                    @* <option value="">-- Select Stream --</option> *@
+                </select>
             </div>
         </div>
 
+
         <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label">Roles & Responsibilities</label>
+            <label class="col-sm-3 col-form-label">
+                Roles & Responsibilities <span class="text-danger">*</span>
+            </label>
             <div class="col-sm-9">
-                <textarea asp-for="RolesAndResponsibilities" class="form-control" required></textarea>
+                <textarea asp-for="RolesAndResponsibilities" class="form-control"></textarea>
+                <span asp-validation-for="RolesAndResponsibilities" class="text-danger"></span>
             </div>
         </div>
 
         <div class="text-end">
             <button type="submit" class="btn btn-primary">Save</button>
-            <a href="@Url.Action("Index", "Designation")" class="btn btn-outline-primary">Exit</a>
+            <a href="@Url.Action("Index", "Designation")" class="btn btn-outline-secondary ms-2">Exit</a>
         </div>
-
     </form>
 </div>
+
+

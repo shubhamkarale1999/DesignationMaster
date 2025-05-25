@@ -4,6 +4,7 @@ using DesignationMaster.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DesignationMaster.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250525112351_DesignationMasterV2")]
+    partial class DesignationMasterV2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,7 +50,7 @@ namespace DesignationMaster.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CollegeId")
+                    b.Property<int>("CollegeId")
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
@@ -60,7 +63,7 @@ namespace DesignationMaster.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(50)");
 
-                    b.Property<int?>("DesignationCode")
+                    b.Property<int>("DesignationCode")
                         .HasColumnType("int");
 
                     b.Property<string>("DesignationName")
@@ -80,7 +83,7 @@ namespace DesignationMaster.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("StreamId")
+                    b.Property<int>("StreamId")
                         .HasColumnType("int");
 
                     b.Property<string>("UpdatedBy")
@@ -119,11 +122,15 @@ namespace DesignationMaster.Migrations
                 {
                     b.HasOne("DesignationMaster.Models.CollegeViewMode", "College")
                         .WithMany()
-                        .HasForeignKey("CollegeId");
+                        .HasForeignKey("CollegeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("DesignationMaster.Models.StreamViewModel", "Stream")
                         .WithMany()
-                        .HasForeignKey("StreamId");
+                        .HasForeignKey("StreamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("College");
 

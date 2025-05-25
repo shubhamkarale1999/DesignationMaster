@@ -1,74 +1,90 @@
-﻿<div class="row mt-3">
-    <div class="col-md-4">
-        <label>College Name</label>
-        <select id="collegeFilter" class="form-select">
-            <option value="">-- All Colleges --</option>
-            @foreach (var college in ViewBag.CollegeList as List<SelectListItem>)
-            {
-                <option value="@college.Value">@college.Text</option>
-            }
-        </select>
-    </div>
-    <div class="col-md-4">
-        <label>Designation Name</label>
-        <input type="text" id="designationNameFilter" class="form-control" placeholder="Search Designation Name" />
-    </div>
-    <div class="col-md-4 d-flex align-items-end">
-        <button id="applyFilterBtn" class="btn btn-primary w-100">Go</button>
-    </div>
+﻿<style>
+	th.no-sort.sorting,
+	th.no-sort.sorting_asc,
+	th.no-sort.sorting_desc {
+		pointer-events: none;
+		cursor: default;
+		background-image: none !important;
+	}
+
+</style>
+	
+
+<div class="row mt-3">
+	<div class="col-md-4">
+		<label>College Name</label>
+		<select id="collegeFilter" class="form-select">
+			<option value="">-- All Colleges --</option>
+			@foreach (var college in ViewBag.CollegeList as List<SelectListItem>)
+			{
+				<option value="@college.Value">@college.Text</option>
+			}
+		</select>
+	</div>
+	<div class="col-md-4">
+		<label>Designation Name</label>
+		<input type="text" id="designationNameFilter" class="form-control" placeholder="Search Designation Name" />
+	</div>
+	<div class="col-md-4 d-flex align-items-end">
+		<button id="applyFilterBtn" class="btn btn-primary w-100">Go</button>
+	</div>
 </div>
 
 
 <div class="d-flex justify-content-between align-items-center mt-4">
-    <h4>Designation List</h4>
-    <a href="@Url.Action("AddDesignation", "Designation")" class="btn btn-success">
-        <i class="bi bi-plus-circle"></i> Add New Designation
-    </a>
+	<h4>Designation List</h4>
+	<a href="@Url.Action("AddDesignation", "Designation")" class="btn btn-success">
+		<i class="bi bi-plus-circle"></i> Add New Designation
+	</a>
 </div>
 
 <table id="designationTable" class="table table-bordered table-striped mt-4">
-    <thead class="table-secondary">
-        <tr>
-            <th>S.No</th>
-            <th>Designation Acronym</th>
-            <th>Designation Name</th>
-            <th>Staff Type</th>
-            <th>Priority</th>
-            <th>Roles & Responsibilities</th>
-        </tr>
-    </thead>
+	<thead class="table-secondary">
+		<tr>
+			<th>S.No</th>
+			<th>Designation Acronym</th>
+			<th>Designation Name</th>
+			<th>Staff Type</th>
+			<th>Priority</th>
+			<th>Roles & Responsibilities</th>
+		</tr>
+	</thead>
 </table>
 
 <!-- DataTable & Filter Script -->
 @section Scripts {
-    <script>
-        $(document).ready(function () {
-            var table = $('#designationTable').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: '@Url.Action("GetDesignations", "Designation")',
-                    type: 'POST',
-                    data: function (d) {
-                        d.collegeId = $('#collegeFilter').val();
-                        d.designationName = $('#designationNameFilter').val();
-                    }
-                },
-                columns: [
-                    { data: "rowIndex" },
-                    { data: "acronym" },
-                    { data: "name" },
-                    { data: "staffType" },
-                    { data: "priority" },
-                    { data: "rolesAndResponsibilities" }
-                ]
-            });
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
+	<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+	<script>
+				$(document).ready(function () {
+					var table = $('#designationTable').DataTable({
+						processing: true,
+						serverSide: true,
+						searching: false,
+						ajax: {
+							url: '@Url.Action("GetDesignations", "Designation")',
+							type: 'POST',
+							data: function (d) {
+								d.collegeId = $('#collegeFilter').val();
+								d.designationName = $('#designationNameFilter').val();
+							}
+						},
+						columns: [
+					{ data: "rowIndex", orderable: false, className: "no-sort" },
+							{ data: "designationAcronym" },
+							{ data: "designationName" },
+							{ data: "staffType" },
+							{ data: "priority" },
+							{ data: "rolesAndResponsibilities" }
+						]
+					});
 
-            // Trigger filter only on "Go" button click
-            $('#applyFilterBtn').on('click', function () {
-                table.draw();
-            });
-        });
-    </script>
+					// Trigger filter only on "Go" button click
+					$('#applyFilterBtn').on('click', function () {
+						table.draw();
+					});
+				});
+	</script>
 }
 

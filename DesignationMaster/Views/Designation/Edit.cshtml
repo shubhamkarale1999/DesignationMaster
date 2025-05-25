@@ -1,0 +1,84 @@
+﻿@model DesignationMaster.Models.DesignationMasterViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>DesignationMasterViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="CollegeId" class="control-label"></label>
+                <select asp-for="CollegeId" class="form-control" asp-items="ViewBag.CollegeId"></select>
+                <span asp-validation-for="CollegeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DesignationCode" class="control-label"></label>
+                <input asp-for="DesignationCode" class="form-control" />
+                <span asp-validation-for="DesignationCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DesignationAcronym" class="control-label"></label>
+                <input asp-for="DesignationAcronym" class="form-control" />
+                <span asp-validation-for="DesignationAcronym" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DesignationName" class="control-label"></label>
+                <input asp-for="DesignationName" class="form-control" />
+                <span asp-validation-for="DesignationName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StreamId" class="control-label"></label>
+                <select asp-for="StreamId" class="form-control" asp-items="ViewBag.StreamId"></select>
+                <span asp-validation-for="StreamId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RolesAndResponsibilities" class="control-label"></label>
+                <input asp-for="RolesAndResponsibilities" class="form-control" />
+                <span asp-validation-for="RolesAndResponsibilities" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedBy" class="control-label"></label>
+                <input asp-for="CreatedBy" class="form-control" />
+                <span asp-validation-for="CreatedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedDate" class="control-label"></label>
+                <input asp-for="CreatedDate" class="form-control" />
+                <span asp-validation-for="CreatedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UpdatedBy" class="control-label"></label>
+                <input asp-for="UpdatedBy" class="form-control" />
+                <span asp-validation-for="UpdatedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UpdatedDate" class="control-label"></label>
+                <input asp-for="UpdatedDate" class="form-control" />
+                <span asp-validation-for="UpdatedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Status" /> @Html.DisplayNameFor(model => model.Status)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
